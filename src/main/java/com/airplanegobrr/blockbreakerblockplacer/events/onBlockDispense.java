@@ -80,8 +80,8 @@ public class onBlockDispense implements Listener {
                 
                 if (bsMaterial == Material.AIR || bsMaterial == Material.WATER || bsMaterial == Material.LAVA) {
                     bsBlock.setType(itemType);
-                    event.setCancelled(true);
                     dispenser.getInventory().removeItem(item);
+                    event.setCancelled(true);
                 }
             }
         }
