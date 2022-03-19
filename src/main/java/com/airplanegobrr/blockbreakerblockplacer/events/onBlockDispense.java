@@ -22,7 +22,6 @@ public class onBlockDispense implements Listener {
 
     @EventHandler
     public void BlockDispenseEvent(BlockDispenseEvent event) {
-        main.getLogger().info("Block dispensed!");
         Block block = event.getBlock();
         Location loc = block.getLocation();
         String xyzName = (loc.getBlockX() + "," + loc.getBlockY() + "," + loc.getBlockZ());
@@ -52,7 +51,9 @@ public class onBlockDispense implements Listener {
             }
 
             if (item.getType().toString().contains("PICKAXE")) {
-                main.getLogger().info("Pickaxe detected!");
+                if (debug) {
+                    main.getLogger().info("Pickaxe detected!");
+                }
                 BlockFace bsFace = ((Directional) block.getBlockData()).getFacing();
                 Block bsBlock = block.getRelative(bsFace);
                 Material bsMaterial = bsBlock.getType();
