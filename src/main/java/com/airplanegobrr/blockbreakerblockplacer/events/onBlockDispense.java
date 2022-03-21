@@ -12,6 +12,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.block.data.Directional;
 
 import com.airplanegobrr.blockbreakerblockplacer.Blockbreakerblockplacer;
+import org.bukkit.scheduler.BukkitRunnable;
 
 public class onBlockDispense implements Listener {
     private final Blockbreakerblockplacer main;
@@ -27,7 +28,6 @@ public class onBlockDispense implements Listener {
         String xyzName = (loc.getBlockX() + "," + loc.getBlockY() + "," + loc.getBlockZ());
         ItemStack item = event.getItem();
         Material itemType = item.getType();
-        Dispenser dispenser = (Dispenser) block.getState();
 
         // Config stuff
         main.getConfig().addDefault("debug", false);
@@ -81,8 +81,23 @@ public class onBlockDispense implements Listener {
                 
                 if (bsMaterial == Material.AIR || bsMaterial == Material.WATER || bsMaterial == Material.LAVA) {
                     bsBlock.setType(itemType);
-                    dispenser.getInventory().removeItem(item);
                     event.setCancelled(true);
+
+                    Block blockUpdated = event.getBlock();
+                    Dispenser dispenserUpdated = (Dispenser) blockUpdated.getState();
+                    ItemStack itemUpdated = event.getItem();
+
+                    //remove item from dispenser with a BukkitRunnable
+                    new BukkitRunnable() {
+                        @Override
+                        public void run() {
+                            if (debug) {
+                                main.getLogger().info("Removing item from dispenser");
+                            }
+                            dispenserUpdated.getInventory().removeItem(itemUpdated);
+                        }
+                    }.runTaskLater(main, 1);
+
                 }
             }
         }

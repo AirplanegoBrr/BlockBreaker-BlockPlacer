@@ -20,7 +20,6 @@ I spent alot of time on this plugin so I hope you enjoy!
 - Doesn't check if it is already a bb or bp (might leave this in!)
 - Doesn't effect tool durability
 - Doesn't clone what enchments are on the tool (Will come soon)
-- If there is 1 block in the placer then it wont remove it (WHYY?? I dont know!)
 
 
 # Planed features
