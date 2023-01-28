@@ -13,3 +13,6 @@ commands:
     usage: /bp
     aliases:
       - blockplacer
+permissions:
+  blockbreakerblockplacer.use:
+    description: This is the main perm.

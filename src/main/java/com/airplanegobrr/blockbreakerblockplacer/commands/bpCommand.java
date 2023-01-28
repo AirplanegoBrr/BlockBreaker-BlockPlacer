@@ -26,7 +26,7 @@ public class bpCommand implements CommandExecutor {
             Player player = (Player) sender;
 
             //Check perm of the player
-            if (!player.isOp() && !player.hasPermission("use")) {
+            if (!player.isOp() && !player.hasPermission("blockbreakerblockplacer.use")) {
                 player.sendMessage(ChatColor.RED + "No perm!");
                 return true;
             }
