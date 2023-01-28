@@ -14,6 +14,8 @@ import org.bukkit.block.data.Directional;
 import com.airplanegobrr.blockbreakerblockplacer.Blockbreakerblockplacer;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.util.function.Supplier;
+
 public class onBlockDispense implements Listener {
     private final Blockbreakerblockplacer main;
 
@@ -60,7 +62,16 @@ public class onBlockDispense implements Listener {
                 // if the material is not bedrock then break it
                 if (bsMaterial != Material.BEDROCK) {
                     bsBlock.breakNaturally();
-                    event.setCancelled(true);
+                    try {
+                        event.setCancelled(true);
+                        return;
+                    } catch (Exception e) {
+                        if (debug) {
+                            main.getLogger().info("Failed to cancel event!");
+                            main.getLogger().warning((Supplier<String>) e);
+                        }
+                        return;
+                    }
                 }
             }
         }
@@ -78,7 +89,7 @@ public class onBlockDispense implements Listener {
                 BlockFace bsFace = ((Directional) block.getBlockData()).getFacing();
                 Block bsBlock = block.getRelative(bsFace);
                 Material bsMaterial = bsBlock.getType();
-                
+
                 if (bsMaterial == Material.AIR || bsMaterial == Material.WATER || bsMaterial == Material.LAVA) {
                     bsBlock.setType(itemType);
                     event.setCancelled(true);
@@ -97,7 +108,6 @@ public class onBlockDispense implements Listener {
                             dispenserUpdated.getInventory().removeItem(itemUpdated);
                         }
                     }.runTaskLater(main, 1);
-
                 }
             }
         }

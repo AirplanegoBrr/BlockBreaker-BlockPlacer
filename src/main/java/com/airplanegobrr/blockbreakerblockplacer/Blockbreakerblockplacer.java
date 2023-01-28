@@ -23,7 +23,7 @@ public final class Blockbreakerblockplacer extends JavaPlugin {
     public boolean onCommand(CommandSender sender, Command command, String string, String[] args) {
         if (sender instanceof Player) {
             Player player = (Player) sender;
-            if (!player.isOp() && !player.hasPermission("use")) {
+            if (!player.isOp() && !player.hasPermission("blockbreakerblockplacer.use")) {
                 player.sendMessage("No perm!");
                 return true;
             }
