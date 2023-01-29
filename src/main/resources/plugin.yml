@@ -1,18 +1,4 @@
-name: Blockbreakerblockplacer
+name: BlockBreakerPlacer
 version: '${project.version}'
-main: com.airplanegobrr.blockbreakerblockplacer.Blockbreakerblockplacer
-api-version: 1.18
-commands:
-  bb:
-    description: Add a block breaker!
-    usage: /bb
-    aliases:
-      - blockbreaker
-  bp:
-    description: Add a block placer!
-    usage: /bp
-    aliases:
-      - blockplacer
-permissions:
-  blockbreakerblockplacer.use:
-    description: This is the main perm.
+main: me.airplanegobrr.blockbreakerplacer.Main
+api-version: 1.15
