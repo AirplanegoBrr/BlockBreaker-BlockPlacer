@@ -1,4 +1,17 @@
 name: BlockBreakerPlacer
 version: '${project.version}'
-main: me.airplanegobrr.blockbreakerplacer.Main
+main: xyz.airplanegobrr.blockbreakerplacer.Main
 api-version: 1.15
+commands:
+  blockbreaker:
+    description: Command description for blockbreaker
+    usage: /blockbreaker <args>
+    aliases:
+      - bb
+      - breaker
+  blockplacer:
+    description: Command description for blockplacer
+    usage: /blockplacer <args>
+    aliases:
+      - placer
+      - bp
