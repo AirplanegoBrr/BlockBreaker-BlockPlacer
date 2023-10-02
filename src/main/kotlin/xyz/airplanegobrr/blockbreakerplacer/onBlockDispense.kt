@@ -24,12 +24,15 @@ class onBlockDispense(main: Main) : Listener {
         val item = event.item
         val itemType = item.type
 
+        // main.config.load()
         val debug: Boolean = main.config.getBoolean("debug")
         val bbEnabled: Boolean = main.config.getBoolean("breakers.$xyzName")
         val bpEnabled: Boolean = main.config.getBoolean("placers.$xyzName")
 
         if (debug) main.logger.info("Checking $xyzName $bbEnabled $bpEnabled $debug")
         // Real stuff
+
+        var noBreak = arrayOf(Material.WATER, Material.LAVA, Material.AIR)
 
         // blockbreaker
         if (bbEnabled) {
@@ -46,18 +49,20 @@ class onBlockDispense(main: Main) : Listener {
                 val bsBlock = block.getRelative(bsFace)
                 val bsMaterial = bsBlock.type
                 // if the material is not bedrock then break it
-                if (bsMaterial != Material.BEDROCK) {
-                    bsBlock.breakNaturally()
+                if (bsMaterial != Material.BEDROCK && !noBreak.contains(bsMaterial)) {
                     try {
+                        bsBlock.breakNaturally()
                         event.isCancelled = true
                         return
                     } catch (e: Exception) {
                         if (debug) {
-                            main.logger.info("Failed to cancel event!")
+                            main.logger.info("Failed break block!")
                             main.logger.warning(e as Supplier<String?>)
                         }
                         return
                     }
+                } else {
+                    event.isCancelled = true
                 }
             }
         }
@@ -78,6 +83,7 @@ class onBlockDispense(main: Main) : Listener {
                 val bsMaterial = bsBlock.type
                 main.logger.info(bsBlock.type.name)
                 if (noPlace.contains(bsMaterial)) {
+                    main.logger.info("Passed check!")
                     bsBlock.type = itemType
                     event.isCancelled = true
                     val blockUpdated = event.block
@@ -92,6 +98,8 @@ class onBlockDispense(main: Main) : Listener {
                             dispenserUpdated.inventory.removeItem(itemUpdated)
                         }
                     }.runTaskLater(main, 1)
+                } else {
+                    event.isCancelled = true
                 }
             }
         }
