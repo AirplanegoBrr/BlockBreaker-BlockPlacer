@@ -61,6 +61,10 @@ public class onBlockDispense implements Listener {
                 Material bsMaterial = bsBlock.getType();
                 // if the material is not bedrock then break it
                 if (bsMaterial != Material.BEDROCK) {
+                    if(bsMaterial == Material.AIR || bsMaterial == Material.WATER || bsMaterial == Material.LAVA) {
+                        event.setCancelled(true);
+                        return;
+                    }
                     bsBlock.breakNaturally();
                     try {
                         event.setCancelled(true);
